@@ -1,0 +1,29 @@
+documentclass: article
+packages:
+  - geometry
+  - setspace
+  - fontspec
+  - titlesec
+  - afterpage
+  - titling
+  - tikz
+title: Onderzoek Communicatieprotocollen
+subtitle: Verantwoordingsverslag Stage EVAbits
+titlecolor: yellow
+author: Friedel Schön
+date: \today
+geometry: a4paper,left=2.5cm,right=2.5cm,top=2cm,bottom=2cm
+fontsize: 10pt
+mainfont: Fira Sans
+numbersections: true
+newcommands:
+  iic: I\textsuperscript{2}C
+  sectionbreak: \newpage
+  toc: |
+    \renewcommand*\contentsname{Inhoudsopgave}
+    \tableofcontents
+header-includes:
+  - \usepackage[ddmmyyyy]{datetime}
+  - \renewcommand{\dateseparator}{--}
+  - \onehalfspacing
+  - \usetikzlibrary{shapes, arrows}
