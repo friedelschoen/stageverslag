@@ -18,11 +18,6 @@ $if(linestretch)$
 \usepackage{setspace}
 $endif$
 \usepackage{iftex}
-\ifPDFTeX
-  \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
 $if(mathspec)$
   \ifXeTeX
     \usepackage{mathspec} % this also loads fontspec
@@ -34,7 +29,6 @@ $else$
 $endif$
   \defaultfontfeatures{Scale=MatchLowercase}$-- must come before Beamer theme
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
 $if(fontfamily)$
 $else$
 $-- Set default font before Beamer theme so the theme can override it
@@ -44,8 +38,6 @@ $-- User font settings (must come after default font and Beamer theme)
 $if(fontfamily)$
 \usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
 $endif$
-\ifPDFTeX\else
-  % xetex/luatex font selection
 $if(mainfont)$
   \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
 $endif$
@@ -92,7 +84,6 @@ $if(CJKmainfont)$
     \setmainjfont[$for(CJKoptions)$$CJKoptions$$sep$,$endfor$]{$CJKmainfont$}
   \fi
 $endif$
-\fi
 $if(zero-width-non-joiner)$
 %% Support for zero-width non-joiner characters.
 \makeatletter
@@ -104,12 +95,8 @@ $if(zero-width-non-joiner)$
   }{}%
 }
 \makeatother
-\ifPDFTeX
-  \DeclareUnicodeCharacter{200C}{\zerowidthnonjoiner}
-\else
-  \catcode`^^^^200c=\active
-  \protected\def ^^^^200c{\zerowidthnonjoiner}
-\fi
+\catcode`^^^^200c=\active
+\protected\def ^^^^200c{\zerowidthnonjoiner}
 %% End of ZWNJ support
 $endif$
 % Use upquote if available, for straight quotes in verbatim environments
@@ -279,10 +266,7 @@ $if(lang)$
 $if(babel-lang)$
 \babelprovide[main,import]{$babel-lang$}
 $if(mainfont)$
-\ifPDFTeX
-\else
 \babelfont{rm}[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
-\fi
 $endif$
 $endif$
 $for(babel-otherlangs)$
@@ -295,8 +279,11 @@ $endfor$
 \let\LanguageShortHands\languageshorthands
 \def\languageshorthands#1{}
 $endif$
-$for(package)$
-\usepackage{$package$}
+$for(packages)$
+\usepackage{$packages$}
+$endfor$
+$for(newcommands/pairs)$
+\newcommand{\$it.key$}{$it.value$}
 $endfor$
 $for(header-includes)$
 $header-includes$
@@ -305,13 +292,6 @@ $endfor$
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 $if(dir)$
-\ifPDFTeX
-  \TeXXeTstate=1
-  \newcommand{\RL}[1]{\beginR #1\endR}
-  \newcommand{\LR}[1]{\beginL #1\endL}
-  \newenvironment{RTL}{\beginR}{\endR}
-  \newenvironment{LTR}{\beginL}{\endL}
-\fi
 $endif$
 $if(natbib)$
 \usepackage[$natbiboptions$]{natbib}
