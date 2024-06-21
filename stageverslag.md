@@ -17,7 +17,7 @@
 |            **Locatie** | Skagerak 26                   |
 |                        | 9723JR Groningen              |
 | **Bedrijfsbegeleider** | Jan Stegenga                  |
-|                        | Erik Krallen                  |
+|                        | Erik Kallen                   |
 |                        |                               |
 |          **Opleiding** | Software Engineering, HBO-ICT |
 |             **School** | Hanze Groningen               |
@@ -142,7 +142,7 @@ Bij de opdracht zijn meerdere personen betrokken, deze personen zijn als volgt
 | Naam                | Organisatie     | Rol                             |
 | ------------------- | --------------- | ------------------------------- |
 | Jan Stegenga        | EVAbits         | Stagebegeleiding                |
-| Erik Krallen        | EVAbits         | Stagebegeleiding                |
+| Erik Kallen         | EVAbits         | Stagebegeleiding                |
 | Kobus Bijker        | Hanzehogeschool | Stagebegeleiding  / Beoordelaar |
 | Nienke van der Spek | Hanzehogeschool | Beoordelaar Communicatie        |
 
