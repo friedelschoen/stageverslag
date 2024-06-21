@@ -89,7 +89,7 @@ Een belangrijk aspect van dit project is het onderzoek naar het meest geschikte 
 - **Versiebeheer**: Met versiebeheer worden veranderingen in de geschreven software opgeslagen in vorm van een versie, daardoor is het mogelijk naar oudere versies te kijken. Een groot voordeel is het efficiënte samenwerken. 
 - **Zephyr OS**: Een open-source real-time operating system ontwikkeld voor embedded apparaten, bekend om zijn lichtgewicht, schaalbare en veilige ontwerp.
 
-- \textoverline{CS}: Een lijn boven een lijn-naam betekent, dat deze active-low is. Een lijn, die actief is als het laag is getrokken.
+- \textoverline{CS}: Een lijn boven een signaal-naam betekent, dat deze active-low is. Een lijn, die actief is als het laag is getrokken.
 
 \toc <!-- TABLE OF CONTENTS -->
 
@@ -162,7 +162,7 @@ Efinix is een fabrikant van FPGA's en biedt een reeks handige core-modules aan. 
 
 #### Requirements {.unnumbered}
 
-- Maak een programma, die een LED laat knipperen op Zephyr OS, die op de Sapphire Core kan draaien met gebruik van de Efinix Handleidingen. De aansturen werkt direct op de GPIO-bus van de Sapphire Core.
+- Maak een programma, die een LED laat knipperen op Zephyr OS, die op de RISC-V Core kan draaien met gebruik van de Efinix Handleidingen. De aansturen werkt direct op de GPIO-bus van de RISC-V Core.
 
 ### Demonstratie communicatie tussen de FPGA en een computer via EVAbus (RISC-V Core)
 
@@ -174,11 +174,11 @@ EVAbits heeft hun eigen datastructuur bedacht voor het effectieve aansturen van 
 
 ### Demonstratie communicatie tussen de FPGA en RISC-V Core (VHDL)
 
-Als volgt moet er gecommuniceerd worden tussen de primitieve FPGA Core en de RISC-V Core om data zoals configuratie uit te wisselen. Dit moet van beide kanten ontwikkeld worden.
+Vervolgens moet er gecommuniceerd worden tussen de primitieve FPGA Core en de RISC-V Core om data zoals configuratie uit te wisselen. Dit moet van beide kanten ontwikkeld worden.
 
 #### Requirements {.unnumbered}
 
-- Maak een programma, die een LED laat knipperen op Zephyr OS. Laat Zephyr OS communiceren met de FPGA-implementatie om de LED te laten knipperen.
+- Maak een programma, dat een LED laat knipperen op Zephyr OS. Laat Zephyr OS communiceren met de FPGA-implementatie om de LED te laten knipperen.
 
 ### Implementatie van een driver in Zephyr OS voor het aansturen van de FPGA
 
@@ -196,7 +196,7 @@ De communicatie tussen de FPGA en de RISC-V Core kan op verschillende manieren g
 #### Requirements
 
 - Het onderzoeksrapport wordt onderdeel van het verantwoordingsverslag.
-- Er moeten volgende protocollen vergeleken worden: SPI, \iic{}, UART
+- Er moeten volgende protocollen vergeleken worden: SPI, \iic{}, UART, APB
 
 ## Planning
 
@@ -233,7 +233,7 @@ In de eerste weken werd kennis gemaakt met de opdracht en de elementen erom heen
 |   17 | Ontwerp           | Implementatie EVAbus via UART                                                   |
 |   18 | Onderzoek         | Onderzoek Communicatieprotocollen                                               |
 |   19 | Onderzoek         | Onderzoek Communicatieprotocollen                                               |
-|   20 | Ontwikkeling      | Communicatie FPGA en Zephyr OS (ABS)                                            |
+|   20 | Ontwikkeling      | Communicatie FPGA en Zephyr OS (APB)                                            |
 |   21 | Ontwikkeling      | Communicatie FPGA en Zephyr OS (SPI)                                            |
 |   22 | Ontwikkeling      | Communicatie FPGA en Zephyr OS (SPI)                                            |
 |      | Afronding         | Conceptverslag afmaken                                                          |
@@ -266,10 +266,10 @@ Elke node heeft een adres waarop het wordt aangestuurd, er is alleen communicati
 
 #### Bedrading {.unnumbered}
 
-| Naam               | Functie                                              |
-| ------------------ | ---------------------------------------------------- |
-| Serial Clock (SCL) | Dit is de clock voor de communicatie (master-driven) |
-| Serial Data (SDA)  | Over deze lijn worden command's of data gestuurd     |
+| Naam               | Breedte | Functie                                              |
+| ------------------ | ------- | ---------------------------------------------------- |
+| Serial Clock (SCL) | 1       | Dit is de clock voor de communicatie (master-driven) |
+| Serial Data (SDA)  | 1       | Over deze lijn worden command's of data gestuurd     |
 
 #### Voordelen {.unnumbered}
 
@@ -279,18 +279,37 @@ Elke node heeft een adres waarop het wordt aangestuurd, er is alleen communicati
 
 Doordat er maar één datalijn is, is \iic{} half-duplex. Half-duplex betekent, dat er of geschreven kan worden door de master of door een slave, er kan niet tegelijk gecommuniceerd worden. [@i2c-ti, chap. 2.1] Ook is \iic{} relatief langzaam in vergelijking met bv. SPI. [@i2c-ti, chap. 1.2; @spi-silabs]
 
+### Universal Asynchronous Receiver/Transmitter
+
+Universal Asynchronous Receiver/Transmitter (UART) is een asynchroon, full-duplex protocol, dus er kan onafhankelijk tegelijk geschreven en gelezen worden. In tegenstelling tot de bovenstaande protocollen is UART geen bus-protocol en werkt alleen tussen twee nodes (point-to-point). UART heeft twee datalijnen: RX en TX, RX staat voor _Receive Text_ en TX staat voor _Transmit Text_ en heeft geen clock. Er is niet gedefinieerd, welke richting RX of TX data verstuurd door evenwaardige aard van nodes. Soms moet RX en TX gedraaid worden in de bedrading (één lijn van RX naar TX en één lijn van TX naar RX). Door beide nodes wordt een clock-snelheid gedefinieerd, dat wordt _Baud_ genoemd. Er wordt simpelweg de data geschreven met de gedefinieerde snelheid inclusief een start- en stop-bit en optioneel een parity-bit voor fout-detectie. 
+
+#### Bedrading {.unnumbered}
+
+| Naam | Breedte | Functie                                        |
+| ---- | ------- | ---------------------------------------------- |
+| RX   | 1       | Op deze lijn wordt data verzonden of ontvangen |
+| TX   | 1       | Op deze lijn wordt data verzonden of ontvangen |
+
+#### Voordelen {.unnumbered}
+
+Zoals bij \iic{} heeft UART een eenvoudige bedrading, dus is het goedkoop te implementeren. Doordat het asynchroon is, zijn beide nodes evenwaardig en er moet niet één node als master gedefinieerd zijn.
+
+#### Nadelen {.unnumbered}
+
+UART is niet geschikt voor meerdere nodes. Als er gecommuniceerd moet worden naar meerdere nodes, moeten er onderling UART-signals geplaatst worden. Door de asynchrone aard van UART, zou UART onstabiel worden bij hoge snelheden, dit verlaagd de maximale snelheid. 
+
 ### Serial Peripheral Interface
 
 Het Serial Peripheral Interface (SPI) protocol is een bus-protocol dat, in vergelijking met zowel Inter-Integrated Circuit (I2C) als Universal Asynchronous Receiver/Transmitter (UART), complexer en flexibeler is. SPI maakt gebruik van drie hoofd-signalen: een clock, geleverd door de master, een MOSI-signaal (Master Out, Slave In) om data naar een slave te sturen, en een MISO-signaal (Master In, Slave Out) om data vanuit een slave naar de master te sturen. Daarnaast is er een optionele Chip-Select lijn om eenvoudig een specifieke node te selecteren.[@spi-ti, chap. 2.2]
 
 #### Bedrading {.unnumbered}
 
-| Naam                            | Functie                                                                      |
-| ------------------------------- | ---------------------------------------------------------------------------- |
-| Serial Clock (SCLK)             | Dit is de clock voor de communicatie (master-driven)                         |
-| Master-Out Slave-In (MOSI)      | Data wordt verstuurd door de master naar de slaves                           |
-| Master-In Slave-Out (MISO)      | Data wordt verstuurd door een slave naar de master                           |
-| Chip Select (\textoverline{CS}) | Naar elke peripheral gaat een clip-select om te bepalen, wie geadresseerd is |
+| Naam                            | Breedte       | Functie                                                                      |
+| ------------------------------- | ------------- | ---------------------------------------------------------------------------- |
+| Serial Clock (SCLK)             | 1             | Dit is de clock voor de communicatie (master-driven)                         |
+| Master-Out Slave-In (MOSI)      | 1             | Data wordt verstuurd door de master naar de slaves                           |
+| Master-In Slave-Out (MISO)      | 1             | Data wordt verstuurd door een slave naar de master                           |
+| Chip Select (\textoverline{CS}) | n peripherals | Naar elke peripheral gaat een clip-select om te bepalen, wie geadresseerd is |
 
 #### Voordelen {.unnumbered}
 
@@ -302,24 +321,42 @@ SPI ondersteunt full-duplex, waardoor de bedrading complexer is dan bij \iic{} o
 
 Ten opzichte van UART heeft SPI geen standaard manier om fouten te detecteren. Dit moet door de ontwikkelaar handmatig geïmplementeerd worden, wat de complexiteit kan verhogen.
 
-### Universal Asynchronous Receiver/Transmitter
+### Advanced Peripheral Bus
 
-Universal Asynchronous Receiver/Transmitter (UART) is een asynchroon, full-duplex protocol, dus er kan onafhankelijk tegelijk geschreven en gelezen worden. In tegenstelling tot de bovenstaande protocollen is UART geen bus-protocol en werkt alleen tussen twee nodes (point-to-point). UART heeft twee datalijnen: RX en TX, RX staat voor _Receive Text_ en TX staat voor _Transmit Text_ en heeft geen clock. Er is niet gedefinieerd, welke richting RX of TX data verstuurd door evenwaardige aard van nodes. Soms moet RX en TX gedraaid worden in de bedrading (één lijn van RX naar TX en één lijn van TX naar RX). Door beide nodes wordt een clock-snelheid gedefinieerd, dat wordt _Baud_ genoemd. Er wordt simpelweg de data geschreven met de gedefinieerde snelheid inclusief een start- en stop-bit en optioneel een parity-bit voor fout-detectie. 
+De Advanced Peripheral Bus (APB) is een onderdeel van de Advanced Microcontroller Bus Architecture (AMBA). AMBA is een specificatie voor communicatie tussen peripherals. APB is gedesignd voor lage datahoeveelheden en een simpel interface. [@apb-arm chap. 1.1] ABP is een synchrone, full-duplex communicatieprotocol.
 
 #### Bedrading {.unnumbered}
 
-| Naam | Functie                                        |
-| ---- | ---------------------------------------------- |
-| RX   | Op deze lijn wordt data verzonden of ontvangen |
-| TX   | Op deze lijn wordt data verzonden of ontvangen |
+| Naam [@apb-arm table 2.1] | Breedte    | Functie                                                                                                                                                     |
+| ------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| PCLK                      | 1          | Dit is de clock voor de communicatie, kan apart gegenereed worden                                                                                           |
+| \textoverline{PRESETn}    | 1          | Hiermee kan elke peripheral gereset worden naar een bekende staat                                                                                           |
+| PADDR                     | adres      | Aansturing adresbus                                                                                                                                         |
+| PPROT                     | 3          | Beschermingstype, in hoeverre de data moet beschermd zijn                                                                                                   |
+| PNSE                      | 1          | Uitbreiding naar beschermingstype                                                                                                                           |
+| PSELx                     | 1          | De aanvrager genereert een PSELx-signaal voor elke afhandelaar. PSELx geeft aan dat de afhandelaar is geselecteerd en dat een gegevensoverdracht vereist is |
+| PENABLE                   | 1          | PENABLE geeft de tweede en volgende cycli van een communicatie aan                                                                                          |
+| PWRITE                    | 1          | PWRITE geeft de schrijfrichting aan                                                                                                                         |
+| PWDATA                    | data       | Geeft de data aan, die wordt geschreven                                                                                                                     |
+| PSTRB                     | data/8     | PSTRB geeft aan welke bytelanes moeten worden bijgewerkt tijdens een schrijftransactie. Er is één schrijfstrobe voor elke 8 bits van de schrijfgegevensbus  |
+| PREADY                    | 1          | Gereed. PREADY wordt gebruikt om communicatie door de afhandelaar te verlengen.                                                                             |
+| PRDATA                    | data       | In deze bus wordt data gelezen                                                                                                                              |
+| PSLVERR                   | 0-1        | Deze geeft aan, als er een fout is gevonden                                                                                                                 |
+| PWAKEUP                   | 1          | Deze geeft aan, dat er iets wordt gedaan op de bus                                                                                                          |
+| PAUSER                    | u_request  | Gebruikersaanvraagattribuut                                                                                                                                 |
+| PWUSER                    | u_data     | Gebruikersschrijfgegevensattribuut                                                                                                                          |
+| PRUSER                    | u_data     | Gebruikersleesgegevensattribuut                                                                                                                             |
+| PBUSER                    | u_response | Gebruikersreactieattribuut                                                                                                                                  |
 
 #### Voordelen {.unnumbered}
 
-Zoals bij \iic{} heeft UART een eenvoudige bedrading, dus is het goedkoop te implementeren. Doordat het asynchroon is, zijn beide nodes evenwaardig en er moet niet één node als master gedefinieerd zijn.
+APB heeft meerdere voordelen ten opzichte van bovengenoemde protocollen. APB ondersteunt parallele communicatie, dus meerdere bits worden tegelijk verstuurd. De andere protocollen zijn puur serieel, dat betekent dat data bit-per-bit wordt verstuurd. Door de adres-architectuur is het eenvoudig om verschillende peripherals aan te spreken aan de bus, met SPI moet er een chip-select naar elke peripheral leggen om de zelfde uitkomst te behalen, en bij \iic{} zou dit handmatig moeten worden geïmplementeerd.   
 
 #### Nadelen {.unnumbered}
 
-UART is niet geschikt voor meerdere nodes. Als er gecommuniceerd moet worden naar meerdere nodes, moeten er onderling UART-signals geplaatst worden. Door de asynchrone aard van UART, zou UART onstabiel worden bij hoge snelheden, dit verlaagd de maximale snelheid. 
+Ten opzichte van \iic{}, SPI en UART is APB erg complex, doordat parallel data wordt verstuurd, moeten er vele lijnen worden aangesloten. Daardoor is APB meer geschikt voor een bus intern in bijvoorbeeld de FPGA dan voor communicatie onderling. En afsluitend is APB veel energie nodig, door de hoeveelheid lijnen met een lagere kloksnelheid en dus een lagere datasnelheid.
+
+Een nadeel specifiek voor de Efinix FPGA is, dat de APB slecht gedocumenteerd staat en moeilijk is te implementeren. Er is ook niet veel informatie te vinden om een driver te ontwikkelen. Tijdens het onderzoek is het niet gelukt, APB te draaien op de FPGA van de opdrachtgever.
 
 ## Toepassing op de EVAjig
 
@@ -372,20 +409,19 @@ Deze diagram illustreert de complexe communicatiestructuur binnen het systeem, w
 Hieronder is een tabel opgenomen waarin de drie communicatieprotocollen SPI, I2C en UART worden vergeleken op verschillende criteria:
 
 \small
-| Criteria &nbsp;&nbsp; | SPI (Serial Peripheral Interface)                | I2C (Inter-Integrated Circuit)                  | UART (Universal Asynchronous Receiver-Transmitter)        |
-| --------------------- | ------------------------------------------------ | ----------------------------------------------- | --------------------------------------------------------- |
-| **Protocol Type**     | Synchroon or Asynchroon                          | Synchroon                                       | Asynchroon                                                |
-| **Complexiteit**      | 3 (MOSI, MISO, SCK) + optional CS                | 2 (SDA, SCL)                                    | 2 (TX, RX)                                                |
-| **Clock Signal**      | Ja (master-driven)                               | Ja (master-driven)                              | Nee                                                       |
-| **Data Snelheid**     | tot enkele tientallen MHz                        | tot 3.4 MHz                                     | max. ~1 Mbps voor standaard UART                          |
-| **Complexiteit**      | Matig                                            | Laag tot matig                                  | Laag                                                      |
-| **Multi-Master**      | Nee                                              | Ja                                              | Nee                                                       |
-| **Multi-Slave**       | Ja (met aparte CS lijnen per slave)              | Ja (adressering)                                | Nee (point-to-point)                                      |
-| **Foutdetectie**      | Geen ingebouwde foutdetectie                     | Basis (ACK/NACK)                                | Basis (pariteitsbit)                                      |
-| **Bus**               | Nee                                              | Ja                                              | Nee                                                       |
-| **Kosten**            | Matig (extra lijnen en complexiteit)             | Laag (weinig lijnen, eenvoudiger)               | Laag (weinig lijnen, eenvoudig)                           |
-| **Energiekosten**     | Hoog (door continue clock)                       | Laag tot matig (lage complexiteit, bus-systeem) | Laag (eenvoudig en lage snelheid)                         |
-| **Geschikt voor**     | Hoge snelheid, korte afstand, en meerdere slaves | Lange afstand, meerdere masters/slaves          | Eenvoudige, lange afstand, en point-to-point verbindingen |
+| Criteria &nbsp;&nbsp; | SPI (Serial Peripheral Interface)                | I2C (Inter-Integrated Circuit)                  | UART (Universal Asynchronous Receiver-Transmitter)        | APB (Advanced Peripheral Bus)                   |
+| --------------------- | ------------------------------------------------ | ----------------------------------------------- | --------------------------------------------------------- | ----------------------------------------------- |
+| **Protocol Type**     | Synchroon or Asynchroon                          | Synchroon                                       | Asynchroon                                                | Asynchroon, Parallel                            |
+| **Complexiteit**      | 3 (MOSI, MISO, SCK) + optional CS                | 2 (SDA, SCL)                                    | 2 (TX, RX)                                                | Hoog                                            |
+| **Clock Signal**      | Ja (master-driven)                               | Ja (master-driven)                              | Nee                                                       | Ja (extern)                                     |
+| **Data Snelheid**     | tot tientallen Mbps                              | tot 3.4 Mbps                                    | max. ~1 Mbps voor standaard UART                          | tot enkele tientallen Mbps                      |
+| **Multi-Master**      | Nee                                              | Ja                                              | Nee                                                       | Nee                                             |
+| **Multi-Slave**       | Ja (met aparte CS lijnen per slave)              | Ja (adressering)                                | Nee (point-to-point)                                      | Ja                                              |
+| **Foutdetectie**      | Geen ingebouwde foutdetectie                     | Basis (ACK/NACK)                                | Basis (pariteitsbit)                                      | Ja (optioneel)                                  |
+| **Bus**               | Nee                                              | Ja                                              | Nee                                                       | Ja                                              |
+| **Kosten**            | Matig (extra lijnen en complexiteit)             | Laag (weinig lijnen, eenvoudiger)               | Laag (weinig lijnen, eenvoudig)                           | Hoog (vele datalijnen)                          |
+| **Energiekosten**     | Hoog (door continue clock)                       | Laag tot matig (lage complexiteit, bus-systeem) | Laag (eenvoudig en lage snelheid)                         | Hoog (parallele communicatie)                   |
+| **Geschikt voor**     | Hoge snelheid, korte afstand, en meerdere slaves | Lange afstand, meerdere masters/slaves          | Eenvoudige, lange afstand, en point-to-point verbindingen | Korte afstand, veel data, onderling peripherals |
 \normalsize
 
 ### Conclusie
@@ -398,6 +434,8 @@ UART is ook eenvoudig te bedragen en flexibel te gebruiken, wel is UART ongeschi
 
 SPI bied wel een hoge snelheid met full-duplex communicatie met de consequentie, dat de complexiteit relatief hoog is. Ook is SPI slecht voor bus-systemen, doordat er een chip-select lijn naar elke node moet gaan. 
 
+APB is wel het meest complexe protocol, wel is goed geschikt voor de FPGA ten opzichte van snelheid en flexibiliteit. In het onderzoek is het protocol geanalyseerd en geïmplementeerd, maar door gebrek aan documentatie is dit niet gelukt. In overleg met de opdrachtgever is een alternatieve gevonden. 
+
 Op basis van dit onderzoek is theoretisch bekeken, welk protocol het meest geschikt is voor de EVAjig. Gezien dat het gekozen protocol de bottleneck zou zijn, is snelheid een prioriteit. Ook is een bus-mogelijkheid niet vereist, er wordt slechts tussen twee nodes (de FPGA en de soft-core) gecommuniceerd. SPI blijkt het meest geschikte communicatieprotocol te zijn voor de EVAjig, het bied de snelheid het flexibiliteit. Doordat alles op de FPGA draait en door de Hardware Description Language wordt beschreven is complexiteit geen probleem.
 
 ### Aanbevelingen
@@ -405,10 +443,9 @@ Op basis van dit onderzoek is theoretisch bekeken, welk protocol het meest gesch
 Op basis van de conclusies van dit onderzoek, zijn er volgende aanbevelingen opgesteld om de communicatie op de EVAjig te optimaliseren:
 
 - **Integratie van SPI in de FPGA-architectuur**: Het wordt aanbevolen om de FPGA te ontwikkelen met het SPI-protocol, hier is het makkelijk om de bestaande hardware clock te gebruiken en dus de FPGA-kant de master te maken. Dit biedt maximale flexibiliteit in communicatie met verschillende apparaten en systemen.
-
 - **Ontwikkeling van een SPI-driver voor Zephyr OS**: Efinix biedt geen SPI-driver aan voor Zephyr OS. Om de integratie van SPI eenvoudig te laten verlopen, moet er een aangepaste SPI-driver worden ontwikkeld voor Zephyr OS. Op basis van de geleverde driver van Efinix en de handleidingen kan de driver voor Zephyr OS worden ontwikkelt. Het is belangrijk, de driver goed te documenteren, zowel voor de gebruiker, maar ook voor de ontwikkelaar om het gebruik eenvoudig te maken.
-
 - **Optimalisatie van communicatieprotocol**: Door de aard van de FPGA, kan er een hoge datasnelheid toegepast worden. Maak een test met meerderde kloksnelheden, om de meest geschikte snelheid te vinden. De snelheid bepaald ook te betrouwbaarheid van communicatie.
+- **Optimalisatie door APB**: APB blijkt een goed geschikt protocol te zijn voor de FPGA, wel is er nog een gebrek aan documentatie in Efinix' handleidingen. Er wordt aanbevolen om dieper onderzoek naar de werkwijze te doen naar APB in plaats van SPI.
 
 Door deze aanbevelingen kan EVAbits de functionaliteit van de EVAjig verbeteren, als er gebruik gemaakt wordt van een FPGA.
 
@@ -418,15 +455,15 @@ Tijdens de stageperiode zijn er planningen gemaakt om de werkzaamheden gestructu
 
 ## Onderzoeken
 
-In de oriëntatie- en onderzoekfase werd uitgebreid onderzoek verricht naar de meest geschikte communicatieprotocollen voor de toepassing op de FPGA. Dit omvatte het vergelijken van de snelheid, betrouwbaarheid en kosten van verschillende protocollen zoals SPI, UART, en I2C. Daarnaast werd onderzocht hoe de bestaande microcontroller-gebaseerde implementatie kon worden overgezet naar een FPGA-implementatie.
+In de oriëntatie- en onderzoekfase werd uitgebreid onderzoek verricht naar de meest geschikte communicatieprotocollen voor de toepassing op de FPGA. Dit omvatte het vergelijken van de snelheid, betrouwbaarheid en kosten van verschillende protocollen zoals SPI, UART, \iic{} en APB. Daarnaast werd onderzocht hoe de bestaande microcontroller-gebaseerde implementatie kon worden overgezet naar een FPGA-implementatie.
 
 ## Projectmatig Werken 
 
-Bij de opdrachtgever is een agile werkwijze gebruikt, waarbij iteratieve sessies hielpen om de status in de gaten te houden en aan te passen waar nodig. Aan het begin van de stage werd een duidelijke fasering gedefinieerd, die als leidraad diende voor het gehele project. Dit gestructureerde proces zorgde voor een overzichtelijke en efficiënte werkwijze, waarbij elke fase van het project zorgvuldig werd gepland en uitgevoerd.
+Bij de opdrachtgever is een agile werkwijze gebruikt, waarbij iteratieve sessies hielpen om de status in de gaten te houden en aan te passen waar nodig. Aan het begin van de stage werd een duidelijke fasering gedefinieerd, die als leidraad diende voor het gehele project. Dit gestructureerde proces zorgde voor een overzichtelijke en efficiënte werkwijze, waarbij elke fase van het project zorgvuldig werd gepland en uitgevoerd. Bij het onderzoek zijn problemen opgekomen betreffend APB, deze problemen zijn projectmatig en in overleg met de opdrachtgever opgelost.
 
 ## Analyseren
 
-Een grondige analyse van de huidige implementatie van het systeem bracht diverse verbeterpunten aan het licht. Deze analyse omvatte het bekijken van de beperkingen en de mogelijkheden voor optimalisatie van de bestaande microcontroller-oplossing. De resultaten van deze analyse werden gebruikt om de nieuwe FPGA-implementatie te verbeteren, met als doel de functionaliteit en efficiëntie te verhogen.
+Een grondige analyse van de huidige implementatie van het systeem bracht diverse verbeterpunten aan het licht. Deze analyse omvatte het bekijken van de beperkingen en de mogelijkheden voor optimalisatie van de bestaande microcontroller-oplossing. De resultaten van deze analyse werden gebruikt om de nieuwe FPGA-implementatie te verbeteren, met als doel de functionaliteit en efficiëntie te verhogen. De protocollen werden geanalyseerd om het meest geschikte protocol te gebruiken.
 
 ## Ontwerpen
 
@@ -451,7 +488,7 @@ Tijdens mijn stage bij EVAbits heb ik veel geleerd over verschillende technieken
 ## Technische Vaardigheden
 
 - **Diepgaande kennis van FPGA's**
-Gedurende mijn stage heb ik uitgebreide ervaring opgedaan met FPGA's, met name de Sapphire Core van Efinix. Het ontwikkelen van schema's met gebruik van een Hardware Description Language was een uitdaging zowel het tooling om de FPGA heen.
+Gedurende mijn stage heb ik uitgebreide ervaring opgedaan met FPGA's, met name de RISC-V Core van Efinix. Het ontwikkelen van schema's met gebruik van een Hardware Description Language was een uitdaging zowel het tooling om de FPGA heen.
 
 - **Real-Time Operating Systems (RTOS)**
 Het werken met Zephyr OS heeft me waardevolle ervaring gegeven in het gebruik van een RTOS voor embedded systemen. Ik heb geleerd hoe ik effectieve drivers kan schrijven en hoe ik de voordelen van een RTOS kan benutten om efficiënte programma's te schrijven.
@@ -460,6 +497,9 @@ Het werken met Zephyr OS heeft me waardevolle ervaring gegeven in het gebruik va
 De vergelijking van verschillende communicatieprotocollen (SPI, \iic{}, UART) en de implementatie van de protocollen hebben mij veel over het innerlijk van computercommunicatie laten zien. Ik heb geleerd hoe ik de voor- en nadelen van elk protocol kan vergelijken om de beste oplossing voor een specifieke toepassing te kiezen.
 
 ## Professionele Ontwikkeling
+
+- **Problemen oplossen**
+In het onderzoek ben ik vast gelopen bij het implementeren van APB. Ik heb geleerd om daarmee om te gaan en naar alternatieven te zoeken om dit probleem te verhelpen.
 
 - **Onderzoek en Analyse**
 Het onderzoeken en analyseren van de communicatieprotocollen heeft de vaardigheid versterkt. Ik heb geleerd een bestaande implementatie te begrijpen en te analyseren om deze theoretisch toe te passen op een andere casus.
