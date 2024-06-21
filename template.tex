@@ -8,18 +8,7 @@ $prefix()$
 $if(has-frontmatter)$
 \frontmatter
 $endif$
-$if(title)$
-\maketitle
-\pagecolor{$titlecolor$}\afterpage{\nopagecolor}
-\thispagestyle{empty}
-\newpage
-$if(abstract)$
-\begin{abstract}
-$abstract$
-\end{abstract}
-$endif$
-$endif$
-
+$title()$
 $for(include-before)$
 $include-before$
 

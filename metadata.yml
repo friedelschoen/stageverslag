@@ -7,8 +7,8 @@ packages:
   - afterpage
   - titling
   - tikz
-title: Onderzoek Communicatieprotocollen
-subtitle: Verantwoordingsverslag Stage EVAbits
+title: Verantwoordingsverslag en Onderzoek Stage EVAbits
+subtitle: Wat zijn voor- en nadelen van communicatiemiddelen tussen FPGA en computer ten opzichte van snelheid, betrouwbaarheid en kosten?
 titlecolor: yellow
 author: Friedel Schön
 date: \today
@@ -21,9 +21,13 @@ newcommands:
   sectionbreak: \newpage
   toc: |
     \renewcommand*\contentsname{Inhoudsopgave}
+    \small
     \tableofcontents
+    \normalsize
 header-includes:
   - \usepackage[ddmmyyyy]{datetime}
   - \renewcommand{\dateseparator}{--}
   - \onehalfspacing
-  - \usetikzlibrary{shapes, arrows}
+  - \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+  - \AddToHook{cmd/section/before}{\clearpage}
+  - \newcommand{\textoverline}[1]{$\overline{\mbox{#1}}$}
