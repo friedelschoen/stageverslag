@@ -44,7 +44,6 @@ Assen, \today
 
 Friedel Schön
 
-
 # Samenvatting {.unnumbered}
 
 Field-Programmable Gate Arrays (FPGA's) bieden op flexibele wijze een breed scala aan functies. Door de mogelijkheid om hardware opnieuw te configureren en gemakkelijk aan te passen, zijn FPGA's geschikt voor complexe en flexibele toepassingen. EVAbits, een klein bedrijf gevestigd in Euvelgunne, Groningen, is gespecialiseerd in Embedded Engineering en Architectural Design. Het bedrijf heeft sinds twee jaar een eigen product ontwikkeld: de EVAjig, een testkast voor het testen van printplaatassemblages (PCBA's).
@@ -56,37 +55,69 @@ Een belangrijk aspect van dit project is het onderzoek naar het meest geschikte 
 # Begrippenlijst {.unnumbered}
 
 - **Architecture Design**: Het ontwerpen van de structuur en organisatie van hardware of software systemen.
+
 - **Baud**: De eenheid van symbolen per seconde in communicatie, gebruikt om de snelheid van dataoverdracht in asynchrone protocollen zoals UART te specificeren.
+
 - **Clock-signaal**: Een elektrisch signaal dat de timing en snelheid van communicatie in een protocol bepaalt.
+
 - **(Data-)bus**: Meerdere peripherals zijn parallel aangesloten aan de datalijnen en communiceren zo onderling of met de master. De bus kan verbreed worden, zonder de complexiteit te moeten verhogen.
+
 - **(Data-)lijn** of **Signaal**: Een bekabeling van chip naar chip.
+
 - **Datastructuur**: Een specifieke manier om gegevens te organiseren, te beheren en op te slaan zodat ze efficiënt kunnen worden gebruikt en gecommuniceerd.
+
 - **Half-Duplex**: Er kan maar in een richting gecommuniceerd worden tegelijkertijd. 
+
 - **Full-Duplex**: Er kan tegelijk in twee richtingen gecommuniceerd worden.
+
 - **Echo** of **Ping-Pong**: Een programma, die op een _ping_-request een _pong_-response terug geeft. Op deze manier is de connectie en snelheid te testen.
+
 - **Efinix Titanium**: Een type FPGA geproduceerd door Efinix, bekend om zijn snelheid en energiezuinigheid.
+
 - **Embedded Programming**: Het schrijven van software die direct op de hardware van een apparaat draait, vaak gebruikt in speciale hardware- en software-integraties.
+
 - **EVAjig**: Een testapparaat van EVAbits ontworpen om het programmeren, instellen en testen van printplaatassemblages (PCBA) te vergemakkelijken.
+
 - **Field-Programmable Gate Array (FPGA)**: Een type geïntegreerd circuit dat door de gebruiker geconfigureerd kan worden om specifieke taken uit te voeren.
+
 - **Google’s Protobuffers (Protobuf)**: Een efficiënt en taalneutraal data-serialisatieformaat ontwikkeld door Google, gebruikt voor het uitwisselen van gestructureerde informatie tussen verschillende programma's en systemen.
+
 - **Hardware Description Language (HDL)**: Een programmeertaal waarmee de configuraties en functies van de logische blokken binnen een FPGA worden beschreven.
+
 - **Hot-swapping**: De mogelijkheid om componenten toe te voegen of te verwijderen uit een systeem zonder dat het systeem hoeft te worden uitgeschakeld of opnieuw opgestart.
+
 - **Implementatie**: Het proces van het realiseren van een ontwerp of plan door middel van hardware of software.
+
 - **Inter-Integrated-Circuit (\iic{})**: Een eenvoudige, goedkope bus-systeem protocol dat een master en een of meer slaves gebruikt voor communicatie, met twee lijnen: een voor data en een voor clock.
+
 - **Master-Slave**: Een communicatieprincipe waarbij een master-apparaat controle heeft over de communicatie met één of meer slave-apparaten die reageren op de commando's van de master.
+
 - **Microcontroller**: Een klein computer op een chip met een processor, geheugen, en invoer-/uitvoerpoorten, gebruikt voor specifieke taken in elektronische systemen.
+
 - **Node**: Een individueel apparaat of punt in een netwerk of bus-systeem dat deelneemt aan de communicatie.
+
 - **Open Source**: Een programma is opgebouwd met geschreven code (de broncode). Ontwikkelaars kunnen ervoor kiezen deze broncode voor iedereen publiek toegankelijk te maken, iedereen kan de broncode lezen en verbeteren.
+
 - **Peripheral**: Een controller (of computer) bestaat uit meerdere peripherals, dit zijn chips of elementen die een functie toevoegen. Voorbeeld: de processor op een microcontroller, de UART-naar-USB chip op een computer.
+
 - **Printplaatassemblages (PCBA)**: Een geassembleerde printplaat waarop verschillende elektronische componenten zijn bevestigd.
+
 - **RISC-V**: Een open standaard instructieset architectuur (ISA) gebaseerd op de principes van verminderde instructieset computing (RISC).
+
 - **Real-Time Operating System (RTOS)**: Een besturingssysteem ontworpen om applicaties te draaien die binnen strikte tijdslimieten moeten reageren op gebeurtenissen, vaak gebruikt in embedded systemen.
+
 - **Request-Response**: Een gebruiker stuurt een verzoek (request) naar een server, de server stuurt een antwoord (response) naar de gebruiker. Voorbeeld: De gebruiker vraagt `hanze.nl` op (request), de webserver stuurt de gegevens van de website (response).
+
 - **Serial Peripheral Interface (SPI)**: Een flexibel bus-systeem protocol met drie signalen: clock, MOSI (Master Out, Slave In), en MISO (Master In, Slave Out), plus een optionele Chip-Select lijn.
+
 - **Synchrone Communicatie**: Zender en ontvanger zijn gesynchroniseerd door een gezamenlijke clock. Er wordt alleen op de klokslag data verzonden of ontvangen.
+
 - **Asynchrone Communicatie**: Zender en ontvanger zijn niet gesynchroniseerd door een gezamenlijke clock. Data kan onafhankelijk van elkaar verzonden worden.
+
 - **Universal Asynchronous Receiver/Transmitter (UART)**: Een asynchroon protocol voor communicatie tussen twee nodes, waarbij twee datalijnen (RX en TX) gebruikt worden zonder clock, met een gedefinieerde baud-snelheid.
+
 - **Versiebeheer**: Met versiebeheer worden veranderingen in de geschreven software opgeslagen in vorm van een versie, daardoor is het mogelijk naar oudere versies te kijken. Een groot voordeel is het efficiënte samenwerken. 
+
 - **Zephyr OS**: Een open-source real-time operating system ontwikkeld voor embedded apparaten, bekend om zijn lichtgewicht, schaalbare en veilige ontwerp.
 
 - \textoverline{CS}: Een lijn boven een signaal-naam betekent, dat deze active-low is. Een lijn, die actief is als het laag is getrokken.
@@ -100,7 +131,7 @@ De opdrachtgever EVAbits is een klein bedrijf gevestigd in Euvelgunne te Groning
 De EVAjig is een testapparaat dat speciaal is ontworpen om het proces van programmeren, instellen en testen van printplaatassemblages (PCBA) te vergemakkelijken. Dit apparaat is uitgerust met een dashboard en een online portaal. Een van de opvallende kenmerken van de EVAjig is de mogelijkheid om cassettes met PCBA's gemakkelijk te verwisselen. Dit betekent dat je met hetzelfde apparaat verschillende soorten PCB kunt ontwerpen en testen zonder veel tijd kwijt te zijn aan het aanpassen van de testopstelling.
 Daarnaast biedt de EVAjig een breed scala aan algemene functies, waardoor het een veelzijdig hulpmiddel is voor verschillende testbehoeften. Dit maakt het apparaat bijzonder geschikt voor bedrijven en technici die regelmatig met verschillende PCB ontwerpen werken.
 
-Dit verantwoordingsverslag licht de opdracht toe en verantwoordt de gemaakte keuzes en de aanpak van de problemen. Het verslag begint met een toelichting op de EVAjig en het probleem wat de opdrachtgever ermee heeft. Vervolgens wordt het uitgevoerde onderzoek besproken in hoofdstuk vier, dit omvat een conclusie met aanbevelingen aan de opdrachtgever. In het vijfde hoofdstuk worden de HBO-I-competenties toegelicht en wordt beschreven hoe deze zijn bereikt. Er wordt afgesloten met 'Lessons Learned' met onderdelen die in de stage zijn geleerd of verbetert inclusief een korte zelfreflectie.
+Dit verantwoordingsverslag licht de opdracht toe en verantwoordt de gemaakte keuzes en de aanpak van de problemen. Het verslag begint met een toelichting op de EVAjig en het probleem dat de opdrachtgever ermee heeft. Vervolgens wordt het uitgevoerde onderzoek besproken in hoofdstuk vier, dit omvat een conclusie met aanbevelingen aan de opdrachtgever. In het vijfde hoofdstuk worden de HBO-I-competenties toegelicht en wordt beschreven hoe deze zijn bereikt. Er wordt afgesloten met 'Lessons Learned' met onderdelen die in de stage zijn geleerd of verbetert inclusief een korte zelfreflectie.
 
 # Hoofdstuk Opdrachtbeschrijving
 
@@ -133,7 +164,7 @@ Het doel van de opdrachtgever is om binnen twintig weken een proof-of-concept te
 
 De opdrachtgever vroeg om een onderzoek te doen over de FPGA. De concrete onderzoeksvraag is "_Wat zijn voor- en nadelen van communicatiemiddelen tussen FPGA en computer ten opzichte van snelheid, betrouwbaarheid en kosten?_"
 
-De huidige implementatie op de microcontroller, de software op de microcontroller, hoort bijna onveranderd op de FPGA-implementatie te kunnen draaien. Wel moet de software met de FPGA kunnen praten, dit vereist een vast communicatieprotocol tussen de software en de firmware architectuur. Er zijn vele communicatieprotocollen beschikbaar met elk hun eigen use-case. In dit verslag zou onderzocht worden, welk protocol het beste geschikt is voor communicatie tussen de firmware en de software ten opzichte van snelheid, flexibiliteit en kosten.
+De huidige implementatie op de microcontroller, de software op de microcontroller, hoort bijna onveranderd op de FPGA-implementatie te kunnen draaien. Wel moet de software met de FPGA kunnen praten, dit vereist een vast communicatieprotocol tussen de software en de firmware architectuur. Er zijn vele communicatieprotocollen beschikbaar met elk hun eigen use-case. In dit verslag is onderzoek gedaan naar welk protocol het beste geschikt is voor communicatie tussen de firmware en de software ten opzichte van snelheid, flexibiliteit en kosten.
 
 ## Stakeholders
 
@@ -162,11 +193,11 @@ Efinix is een fabrikant van FPGA's en biedt een reeks handige core-modules aan. 
 
 #### Requirements {.unnumbered}
 
-- Maak een programma, die een LED laat knipperen op Zephyr OS, die op de RISC-V Core kan draaien met gebruik van de Efinix Handleidingen. De aansturen werkt direct op de GPIO-bus van de RISC-V Core.
+- Maak een programma, die een LED laat knipperen op Zephyr OS, die op de RISC-V Core kan draaien met gebruik van de Efinix Handleidingen. Het aansturen werkt direct op de GPIO-bus van de RISC-V Core.
 
 ### Demonstratie communicatie tussen de FPGA en een computer via EVAbus (RISC-V Core)
 
-EVAbits heeft hun eigen datastructuur bedacht voor het effectieve aansturen van de EVAjig. Dit is geïmplementeerd met behulp van Google’s Protobuffers (Protobuf), Protobuf is een efficiënt en taalneutraal data-serialisatieformaat ontwikkeld door Google, het wordt gebruikt voor het uitwisselen van gestructureerde informatie tussen verschillende programma's en systemen. Het maakt gebruik van een eenvoudig en uitgebreid berichtformaat om data in een compacte, snelle en makkelijk te lezen manier te coderen en decoderen.
+EVAbits heeft hun eigen datastructuur bedacht voor het effectieve aansturen van de EVAjig, dit is geïmplementeerd met behulp van Google’s Protobuffers (Protobuf). Protobuf is een efficiënt en taalneutraal data-serialisatieformaat ontwikkeld door Google, het wordt gebruikt voor het uitwisselen van gestructureerde informatie tussen verschillende programma's en systemen. Verder maakt het gebruik van een eenvoudig en uitgebreid berichtformaat om data in een compacte, snelle en makkelijk te lezen manier te coderen en decoderen.
 
 #### Requirements {.unnumbered}
 
@@ -182,7 +213,7 @@ Vervolgens moet er gecommuniceerd worden tussen de primitieve FPGA Core en de RI
 
 ### Implementatie van een driver in Zephyr OS voor het aansturen van de FPGA
 
-Zephyr OS is modulair ontwikkeld om een brede schaal aan microcontrollers te ondersteunen. Hiervoor zijn er verschillende drivers beschikbaar. De FPGA hoort zelf geconfigureerd te worden, hiervoor is geen driver beschikbaar en deze dient zelf ontwikkeld te worden. EVAbits wil graag dat er een driver voor Zephyr OS wordt geschreven om makkelijk de FPGA aan te sturen. 
+Zephyr OS is modulair ontwikkeld om een brede schaal aan microcontrollers te ondersteunen, hiervoor zijn verschillende drivers beschikbaar. De FPGA hoort zelf geconfigureerd te worden, hiervoor is geen driver beschikbaar en deze dient zelf ontwikkeld te worden. EVAbits wil graag dat er een driver voor Zephyr OS wordt geschreven om makkelijk de FPGA aan te sturen. 
 
 #### Requirement {.unnumbered}
 
@@ -191,7 +222,7 @@ Zephyr OS is modulair ontwikkeld om een brede schaal aan microcontrollers te ond
 
 ### Onderzoeksrapport communicatieprotocollen
 
-De communicatie tussen de FPGA en de RISC-V Core kan op verschillende manieren geïmplementeerd worden. Hiervoor zijn vele protocollen beschikbaar en toepasbaar. De opdrachtgever wil graag een vergelijking hebben tussen deze protocollen om beter te kunnen kiezen welke voor de EVAjig het beste is.
+De communicatie tussen de FPGA en de RISC-V Core kan op verschillende manieren geïmplementeerd worden. Hiervoor zijn vele protocollen beschikbaar en toepasbaar. De opdrachtgever wil graag een vergelijking hebben tussen deze protocollen om beter te kunnen kiezen welke voor de EVAjig het meest geschikt is.
 
 #### Requirements
 
@@ -200,7 +231,7 @@ De communicatie tussen de FPGA en de RISC-V Core kan op verschillende manieren g
 
 ## Planning
 
-Er werd meegewerkt aan de Agile werkwijze van de opdrachtgever. EVAbits heeft aan begin van elke dag een 'to do'-meeting, waarin wordt besproken wie welke taak gaat uitvoeren en of er problemen zijn. Aan het einde van de dag wordt een 'recap' gedaan, waarop terug wordt gekeken naar de dag.
+Er werd meegewerkt aan de Agile werkwijze van de opdrachtgever. Bij EVAbits vindt aan het begin van elke dag een 'to do'-meeting plaats, waarin wordt besproken wie welke taak gaat uitvoeren en of er problemen zijn. Aan het einde van de dag wordt een 'recap' gedaan, hierbij wordt gekeken naar welke werkzaamheden zijn uitgevoerd op deze dag.
 
 ### Fases
 
@@ -216,7 +247,7 @@ Aan het begin van de stage werden vijf fases gedefinieerd:
 
 ### Werkzaamheden
 
-In de eerste weken werd kennis gemaakt met de opdracht en de elementen erom heen. Vele dingen waren onbekend en nooit behandeld op school, dus deze moesten onderzocht worden door opzoeken in het internet en de kennis binnen het team. Vooral aandacht eisend was het concept _Zephyr OS_ en de tooling en ontwikkeling van de FPGA.
+In de eerste weken werd kennis gemaakt met de opdracht en de elementen erom heen. Vele dingen waren onbekend en niet behandeld gedurende de opleiding, deze onderwerpen moesten onderzocht worden. Dit is gedaan door uitgebreid onderzoek te voeren door middel van het internet en door gebruik te maken van de kennis binnen het team. Een onderwerp dat vooral veel aandacht opeiste is het concept _Zephyr OS_ en de tooling en ontwikkeling van de FPGA.
 
 | Week | Fase &nbsp;&nbsp; | Werkzaamheid                                                                    |
 | ---: | ----------------- | ------------------------------------------------------------------------------- |
@@ -244,25 +275,25 @@ In de eerste weken werd kennis gemaakt met de opdracht en de elementen erom heen
 
 # Hoofdstuk Onderzoek
 
-Dit hoofdstuk gaat over de onderzoek: _Wat zijn voor- en nadelen van communicatiemiddelen tussen FPGA en computer ten opzichte van snelheid, betrouwbaarheid en kosten?_
+Dit hoofdstuk gaat over het onderzoek: _Wat zijn voor- en nadelen van communicatiemiddelen tussen FPGA en computer op basis van snelheid, betrouwbaarheid en kosten?_
 
 Eerst worden verschillende protocollen toegelicht en vergeleken. Daaruit volgt een conclusie.
 
 ## Protocollen
 
-In dit hoofdstuk worden verschillende protocollen toegelicht. Een protocol is een afspraak tussen apparaten hoe gecommuniceerd wordt. Een voorbeeld is een spreektaal, er is afgesproken hoe bepaalde dingen worden genoemd en dat er regels zijn in de taal. Als twee personen er niet over eens zijn, welke taal wordt gesproken of hoe zij de taal spreken, kunnen zij niet met elkaar communiceren. In communicatieprotocollen is gedefinieerd welke signalen (draadjes/lijnen) er zijn en hoe deze moeten worden aangestuurd; wanneer gaat stroom over welk signaal, hoeveel tijd zit er tussen etc.
+In dit hoofdstuk worden verschillende protocollen toegelicht. Een protocol is een afspraak tussen apparaten hoe gecommuniceerd wordt. Een voorbeeld is een spreektaal, er is afgesproken hoe bepaalde dingen worden genoemd en dat er regels zijn in de taal. Als twee personen er niet over eens zijn, welke taal wordt gesproken of hoe zij de taal spreken, kunnen zij niet met elkaar communiceren. In communicatieprotocollen is gedefinieerd welke signalen (draadjes/lijnen) er zijn en hoe deze moeten worden aangestuurd; wanneer gaat stroom over welk signaal, hoeveel tijd zit er tussen, etc.
 
-Protocollen hebben meestal een clock-signaal, die de snelheid van communicatie bepaald. Bijvoorbeeld wanneer het signaal stijgend is (oftewel van een lage waarde naar een hoge waarde gaat) worden de data signalen op een bepaalde manier uitgelezen. Als het signaal van een hoge waarde naar een lage waarde gaat, is het een vallend signaal.
+Protocollen hebben meestal een clock-signaal die de snelheid van communicatie bepaald. Bijvoorbeeld wanneer het signaal stijgend is (oftewel van een lage waarde naar een hoge waarde gaat) worden de data signalen op een bepaalde manier uitgelezen. Als het signaal van een hoge waarde naar een lage waarde gaat, is het een vallend signaal.
 
-In de komenden beschrijvingen worden VDD en GND niet genoemd of meegeteld. VDD is de stroomvoering van desbetreffende chip en GND is de aarding van de chip.
+In de volgende beschrijvingen worden VDD en GND niet genoemd of meegeteld. VDD is de stroomvoering van desbetreffende chip en GND is de aarding van de chip.
 
-Vele protocollen werken naar het bus- of master-slave principe. Bij een bus zijn meerdere apparaten, zoals chips en processoren, parallel aan de signalen aangesloten. Er is één master is gedefinieerd, die controle heeft over het gebeuren op de bus en één of meerdere slaves, die op aanvraag van de master kunnen lezen van de bus of schrijven op de bus. Een aangesloten chip zou voortaan *node* genoemd worden.
+Vele protocollen werken naar het bus- of master-slave principe. Bij een bus zijn meerdere apparaten, zoals chips en processoren, parallel aan de signalen aangesloten. Er is één master gedefinieerd, die controle heeft over het gebeuren op de bus en één of meerdere slaves die, op aanvraag van de master, kunnen lezen van de bus of schrijven op de bus. Een aangesloten chip zou voortaan *node* genoemd worden.
 
 ### Inter-Integrated-Circuit Protocol
 
-Inter-Integrated-Circuit (\iic{}) is één van de meest makkelijke protocollen. \iic{} is ontwikkeld in 1982 door Philips Semiconductor. [@i2c-ti, chap. 1.1] \iic{} is een bus-systeem, die minstens één master en één slave eist. \iic{} bestaat uit twee signalen, een voor de data die moet worden verstuurd en een voor de clock. [@i2c-ti, chap. 2.1]
+Inter-Integrated-Circuit (\iic{}) is één van de meest makkelijke protocollen. \iic{} is ontwikkeld in 1982 door Philips Semiconductor. [@i2c-ti, chap. 1.1] \iic{} is een bus-systeem, die minstens één master en één slave eist. \iic{} bestaat uit twee signalen, één voor de data die moet worden verstuurd en één voor de clock. [@i2c-ti, chap. 2.1]
 
-Elke node heeft een adres waarop het wordt aangestuurd, er is alleen communicatie mogelijk tussen de master en een slave, het is niet mogelijk dat slaves onderling kunnen communiceren. Als standaard is 100kbit/s gedefinieerd als snelheid van communicatie, maar \iic{} is compatibel tot een snelheid van 3,4Mbit/s genoemd _high speed mode_. [@i2c-ti, chap. 1.2]
+Elke node heeft een adres waarop het wordt aangestuurd. Er is alleen communicatie mogelijk tussen de master en een slave, het is niet mogelijk dat slaves onderling kunnen communiceren. Als standaard is 100kbit/s gedefinieerd als snelheid van communicatie, maar \iic{} is compatibel tot een snelheid van 3,4Mbit/s genoemd _high speed mode_. [@i2c-ti, chap. 1.2]
 
 #### Bedrading {.unnumbered}
 
@@ -277,11 +308,11 @@ Elke node heeft een adres waarop het wordt aangestuurd, er is alleen communicati
 
 #### Nadelen {.unnumbered}
 
-Doordat er maar één datalijn is, is \iic{} half-duplex. Half-duplex betekent, dat er of geschreven kan worden door de master of door een slave, er kan niet tegelijk gecommuniceerd worden. [@i2c-ti, chap. 2.1] Ook is \iic{} relatief langzaam in vergelijking met bv. SPI. [@i2c-ti, chap. 1.2; @spi-silabs]
+Doordat er maar één datalijn is, is \iic{} half-duplex. Half-duplex houdt in dat er of geschreven kan worden door de master of door een slave, er kan dus niet tegelijk gecommuniceerd worden. [@i2c-ti, chap. 2.1] Ook is \iic{} relatief langzaam in vergelijking met bv. SPI. [@i2c-ti, chap. 1.2; @spi-silabs]
 
 ### Universal Asynchronous Receiver/Transmitter
 
-Universal Asynchronous Receiver/Transmitter (UART) is een asynchroon, full-duplex protocol, dus er kan onafhankelijk tegelijk geschreven en gelezen worden. In tegenstelling tot de bovenstaande protocollen is UART geen bus-protocol en werkt alleen tussen twee nodes (point-to-point). UART heeft twee datalijnen: RX en TX, RX staat voor _Receive Text_ en TX staat voor _Transmit Text_ en heeft geen clock. Er is niet gedefinieerd, welke richting RX of TX data verstuurd door evenwaardige aard van nodes. Soms moet RX en TX gedraaid worden in de bedrading (één lijn van RX naar TX en één lijn van TX naar RX). Door beide nodes wordt een clock-snelheid gedefinieerd, dat wordt _Baud_ genoemd. Er wordt simpelweg de data geschreven met de gedefinieerde snelheid inclusief een start- en stop-bit en optioneel een parity-bit voor fout-detectie. 
+Universal Asynchronous Receiver/Transmitter (UART) is een asynchroon, full-duplex protocol, dus er kan onafhankelijk tegelijk geschreven en gelezen worden. In tegenstelling tot de bovenstaande protocollen is UART geen bus-protocol en werkt deze alleen tussen twee nodes (point-to-point). UART heeft twee datalijnen: RX en TX, RX staat voor _Receive Text_ en TX staat voor _Transmit Text_ en heeft geen clock. Er is niet gedefinieerd welke richting RX of TX data verstuurd door evenwaardige aard van nodes. Soms moet RX en TX gedraaid worden in de bedrading (één lijn van RX naar TX en één lijn van TX naar RX). Door beide nodes wordt een clock-snelheid gedefinieerd, deze wordt _Baud_ genoemd. Hierbij wordt de data simpelweg geschreven met de gedefinieerde snelheid inclusief een start- en stop-bit en optioneel een parity-bit voor fout-detectie. 
 
 #### Bedrading {.unnumbered}
 
@@ -292,11 +323,11 @@ Universal Asynchronous Receiver/Transmitter (UART) is een asynchroon, full-duple
 
 #### Voordelen {.unnumbered}
 
-Zoals bij \iic{} heeft UART een eenvoudige bedrading, dus is het goedkoop te implementeren. Doordat het asynchroon is, zijn beide nodes evenwaardig en er moet niet één node als master gedefinieerd zijn.
+Zoals bij \iic{} heeft UART een eenvoudige bedrading, het is dus goedkoop te implementeren. Doordat het asynchroon is zijn beide nodes evenwaardig en is het niet vereist om één node als master te definiëren.
 
 #### Nadelen {.unnumbered}
 
-UART is niet geschikt voor meerdere nodes. Als er gecommuniceerd moet worden naar meerdere nodes, moeten er onderling UART-signals geplaatst worden. Door de asynchrone aard van UART, zou UART onstabiel worden bij hoge snelheden, dit verlaagd de maximale snelheid. 
+UART is niet geschikt voor meerdere nodes. Als er gecommuniceerd moet worden naar meerdere nodes moeten er onderling UART-signals geplaatst worden. Door de asynchrone aard van UART, zou UART onstabiel worden bij hoge snelheden en dit resulteerd in een verlaagde maximale snelheid. 
 
 ### Serial Peripheral Interface
 
@@ -317,7 +348,7 @@ Een groot voordeel van SPI is de snelheid. SPI is niet gebonden aan een gedefini
 
 #### Nadelen {.unnumbered}
 
-SPI ondersteunt full-duplex, waardoor de bedrading complexer is dan bij \iic{} of UART. SPI vereist vier lijnen niet niet slechts twee zoals bij de net genoemde protocollen. Ook ondersteund SPI maar één master, die het clock-signaal maakt, daardoor is het moeilijk om verschillende peripherals aan te sluiten. \iic{} ondersteund een bus-systeem, dus er kan een reeks nodes aangesloten worden zonder de complexiteit te moeten verhogen; SPI maakt gebruikt van de chip-select lijn, waardoor het niet mogelijk is een simpel bus te maken.
+Een nadeel is dat SPI full-duplex ondersteunt, waardoor de bedrading complexer is dan bij \iic{} of UART. SPI vereist vier lijnen, niet slechts twee lijnen zoals bij de eerder genoemde protocollen. Ook ondersteund SPI maar één master, die het clock-signaal maakt, daardoor is het moeilijk om verschillende peripherals aan te sluiten. \iic{} ondersteund een bus-systeem, dus er kan een reeks nodes aangesloten worden zonder de complexiteit te moeten verhogen; SPI maakt gebruikt van de chip-select lijn, waardoor het niet mogelijk is een simpel bus te maken.
 
 Ten opzichte van UART heeft SPI geen standaard manier om fouten te detecteren. Dit moet door de ontwikkelaar handmatig geïmplementeerd worden, wat de complexiteit kan verhogen.
 
@@ -350,13 +381,13 @@ De Advanced Peripheral Bus (APB) is een onderdeel van de Advanced Microcontrolle
 
 #### Voordelen {.unnumbered}
 
-APB heeft meerdere voordelen ten opzichte van bovengenoemde protocollen. APB ondersteunt parallele communicatie, dus meerdere bits worden tegelijk verstuurd. De andere protocollen zijn puur serieel, dat betekent dat data bit-per-bit wordt verstuurd. Door de adres-architectuur is het eenvoudig om verschillende peripherals aan te spreken aan de bus, met SPI moet er een chip-select naar elke peripheral leggen om de zelfde uitkomst te behalen, en bij \iic{} zou dit handmatig moeten worden geïmplementeerd.   
+APB heeft meerdere voordelen ten opzichte van bovengenoemde protocollen. APB ondersteunt parallele communicatie, er kunnen dus meerdere bits tegelijk worden verstuurd. De andere protocollen zijn puur serieel, dat betekent dat data bit-per-bit wordt verstuurd. Door de adres-architectuur is het eenvoudig om verschillende peripherals aan te spreken aan de bus, met SPI moet er een chip-select naar elke peripheral leggen om de zelfde uitkomst te behalen, en bij \iic{} zou dit handmatig moeten worden geïmplementeerd.   
 
 #### Nadelen {.unnumbered}
 
-Ten opzichte van \iic{}, SPI en UART is APB erg complex, doordat parallel data wordt verstuurd, moeten er vele lijnen worden aangesloten. Daardoor is APB meer geschikt voor een bus intern in bijvoorbeeld de FPGA dan voor communicatie onderling. En afsluitend is APB veel energie nodig, door de hoeveelheid lijnen met een lagere kloksnelheid en dus een lagere datasnelheid.
+Ten opzichte van \iic{}, SPI en UART is APB erg complex, doordat parallel data wordt verstuurd, moeten er vele lijnen worden aangesloten. Daardoor is APB meer geschikt voor een bus intern, in bijvoorbeeld de FPGA, dan voor communicatie onderling. En afsluitend is APB veel energie nodig, door de hoeveelheid lijnen met een lagere kloksnelheid en dus een lagere datasnelheid.
 
-Een nadeel specifiek voor de Efinix FPGA is, dat de APB slecht gedocumenteerd staat en moeilijk is te implementeren. Er is ook niet veel informatie te vinden om een driver te ontwikkelen. Tijdens het onderzoek is het niet gelukt, APB te draaien op de FPGA van de opdrachtgever.
+Een nadeel specifiek voor de Efinix FPGA is, dat de APB slecht gedocumenteerd staat en lastig te implementeren is. Verder is er ook niet veel informatie beschikbaar om een driver te ontwikkelen. Tijdens het onderzoek is het daardoor dus ook niet gelukt APB te draaien op de FPGA van de opdrachtgever.
 
 ## Toepassing op de EVAjig
 
@@ -384,7 +415,7 @@ Een nadeel specifiek voor de Efinix FPGA is, dat de APB slecht gedocumenteerd st
 
 \end{tikzpicture}
 
-In bovenstaande graaf wordt de communicatiestructuur binnen het systeem geïllustreerd. Het systeem omvat verschillende componenten die onderling communiceren om gegevens en commando's uit te wisselen. De componenten en communicatiepaden zijn als volgt:
+In de bovenstaande graaf wordt de communicatiestructuur binnen het systeem geïllustreerd. Het systeem omvat verschillende componenten die onderling communiceren om gegevens en commando's uit te wisselen. De componenten en communicatiepaden zijn als volgt:
 
 - Computer: Dit fungeert als de bron van gegevens of commando's.
 - Soft Core op FPGA: Dit is een verwerkingsunit die op een FPGA draait.
@@ -426,26 +457,26 @@ Hieronder is een tabel opgenomen waarin de drie communicatieprotocollen SPI, I2C
 
 ### Conclusie
 
-Tijdens de stage is uitgebreid onderzocht naar voor- en nadelen van verschillende communicatieprotocollen. Dit protocol zou dienen als communicatie tussen FPGA en de soft-core op de FPGA op de EVAjig. Onderzocht zijn de protocollen \iic{}, UART en SPI, met elk verschillende kenmerken en beperkingen.
+Tijdens de stage is uitgebreid onderzoek uitgevoerd naar de voor- en nadelen van verschillende communicatieprotocollen. Dit protocol zou dienen als communicatie tussen FPGA en de soft-core op de FPGA op de EVAjig. Onderzocht zijn de protocollen \iic{}, UART en SPI, met elk verschillende kenmerken en beperkingen.
 
-\iic{} heeft een eenvoudige bedrading is is flexibel met de mogelijkheid om meerdere peripherals aan een bus aan te sluiten. Wel is \iic{} beperkt door een lagere snelheid en half-duplex.
+\iic{} heeft een eenvoudige bedrading en is flexibel met de mogelijkheid om meerdere peripherals aan een bus aan te sluiten. Wel is \iic{} beperkt door een lagere snelheid en half-duplex.
 
-UART is ook eenvoudig te bedragen en flexibel te gebruiken, wel is UART ongeschikt voor het communiceren met meerdere peripherals. Het is een asynchroon protocol, wat het moeilijk maakt, data op een hoge snelheid te versturen.
+UART is ook eenvoudig te bedraden en flexibel te gebruiken, wel is UART ongeschikt voor het communiceren met meerdere peripherals. Het is een asynchroon protocol, wat het moeilijk maakt om data op een hoge snelheid te versturen.
 
-SPI bied wel een hoge snelheid met full-duplex communicatie met de consequentie, dat de complexiteit relatief hoog is. Ook is SPI slecht voor bus-systemen, doordat er een chip-select lijn naar elke node moet gaan. 
+SPI bied wel een hoge snelheid met full-duplex communicatie, maar wel met de consequentie dat de complexiteit relatief hoog is. Ook is SPI niet geschikt voor bus-systemen, doordat er een chip-select lijn naar elke node moet gaan. 
 
-APB is wel het meest complexe protocol, wel is goed geschikt voor de FPGA ten opzichte van snelheid en flexibiliteit. In het onderzoek is het protocol geanalyseerd en geïmplementeerd, maar door gebrek aan documentatie is dit niet gelukt. In overleg met de opdrachtgever is een alternatieve gevonden. 
+APB is het meest complexe protocol, wel is deze goed geschikt voor de FPGA door middel van snelheid en flexibiliteit. In het onderzoek is het protocol geanalyseerd en geïmplementeerd, maar door een gebrek aan documentatie is het helaas niet gelukt om deze verder uit te voeren. In overleg met de opdrachtgever is een alternatief gevonden. 
 
-Op basis van dit onderzoek is theoretisch bekeken, welk protocol het meest geschikt is voor de EVAjig. Gezien dat het gekozen protocol de bottleneck zou zijn, is snelheid een prioriteit. Ook is een bus-mogelijkheid niet vereist, er wordt slechts tussen twee nodes (de FPGA en de soft-core) gecommuniceerd. SPI blijkt het meest geschikte communicatieprotocol te zijn voor de EVAjig, het bied de snelheid het flexibiliteit. Doordat alles op de FPGA draait en door de Hardware Description Language wordt beschreven is complexiteit geen probleem.
+Op basis van dit onderzoek is theoretisch bekeken, welk protocol het meest geschikt is voor de EVAjig. Gezien dat het gekozen protocol de bottleneck zou zijn is snelheid een prioriteit. Ook is een bus-mogelijkheid niet vereist, omdat er slechts tussen twee nodes (de FPGA en de soft-core) gecommuniceerd wordt. SPI blijkt het meest geschikte communicatieprotocol te zijn voor de EVAjig, het biedt de juiste snelheid en flexibiliteit. Doordat alles op de FPGA draait en door de Hardware Description Language wordt beschreven is complexiteit hierbij geen probleem.
 
 ### Aanbevelingen
 
 Op basis van de conclusies van dit onderzoek, zijn er volgende aanbevelingen opgesteld om de communicatie op de EVAjig te optimaliseren:
 
-- **Integratie van SPI in de FPGA-architectuur**: Het wordt aanbevolen om de FPGA te ontwikkelen met het SPI-protocol, hier is het makkelijk om de bestaande hardware clock te gebruiken en dus de FPGA-kant de master te maken. Dit biedt maximale flexibiliteit in communicatie met verschillende apparaten en systemen.
-- **Ontwikkeling van een SPI-driver voor Zephyr OS**: Efinix biedt geen SPI-driver aan voor Zephyr OS. Om de integratie van SPI eenvoudig te laten verlopen, moet er een aangepaste SPI-driver worden ontwikkeld voor Zephyr OS. Op basis van de geleverde driver van Efinix en de handleidingen kan de driver voor Zephyr OS worden ontwikkelt. Het is belangrijk, de driver goed te documenteren, zowel voor de gebruiker, maar ook voor de ontwikkelaar om het gebruik eenvoudig te maken.
-- **Optimalisatie van communicatieprotocol**: Door de aard van de FPGA, kan er een hoge datasnelheid toegepast worden. Maak een test met meerderde kloksnelheden, om de meest geschikte snelheid te vinden. De snelheid bepaald ook te betrouwbaarheid van communicatie.
-- **Optimalisatie door APB**: APB blijkt een goed geschikt protocol te zijn voor de FPGA, wel is er nog een gebrek aan documentatie in Efinix' handleidingen. Er wordt aanbevolen om dieper onderzoek naar de werkwijze te doen naar APB in plaats van SPI.
+- **Integratie van SPI in de FPGA-architectuur**: Het wordt aanbevolen om de FPGA te ontwikkelen met het SPI-protocol, hierbij is het eenvoudig om de bestaande hardware clock te gebruiken en dus de FPGA-kant de master te maken. Dit biedt maximale flexibiliteit in communicatie met verschillende apparaten en systemen.
+- **Ontwikkeling van een SPI-driver voor Zephyr OS**: Efinix biedt geen SPI-driver aan voor Zephyr OS. Om de integratie van SPI eenvoudig te laten verlopen, moet er een aangepaste SPI-driver worden ontwikkeld voor Zephyr OS. Op basis van de geleverde driver van Efinix en de handleidingen kan de driver voor Zephyr OS ontwikkelt worden. Het is belangrijk om de driver goed te documenteren, zowel voor de gebruiker, maar ook voor de ontwikkelaar om het gebruik eenvoudig te maken.
+- **Optimalisatie van communicatieprotocol**: Door de aard van de FPGA, kan er een hoge datasnelheid toegepast worden. Er moet een test gemaakt worden met meerderde kloksnelheden, om de meest geschikte snelheid te vinden. De snelheid bepaald ook de betrouwbaarheid van de communicatie.
+- **Optimalisatie door APB**: APB blijkt een goed geschikt protocol te zijn voor de FPGA, wel is er nog een gebrek aan documentatie in de Efinix' handleidingen. Er wordt aanbevolen om dieper onderzoek naar de werkwijze te doen van APB in plaats van SPI.
 
 Door deze aanbevelingen kan EVAbits de functionaliteit van de EVAjig verbeteren, als er gebruik gemaakt wordt van een FPGA.
 
@@ -457,7 +488,7 @@ Tijdens de stageperiode zijn er planningen gemaakt om de werkzaamheden gestructu
 
 In de oriëntatie- en onderzoekfase werd uitgebreid onderzoek verricht naar de meest geschikte communicatieprotocollen voor de toepassing op de FPGA. Dit omvatte het vergelijken van de snelheid, betrouwbaarheid en kosten van verschillende protocollen zoals SPI, UART, \iic{} en APB. Daarnaast werd onderzocht hoe de bestaande microcontroller-gebaseerde implementatie kon worden overgezet naar een FPGA-implementatie.
 
-## Projectmatig Werken 
+## Projectmatig Werken
 
 Bij de opdrachtgever is een agile werkwijze gebruikt, waarbij iteratieve sessies hielpen om de status in de gaten te houden en aan te passen waar nodig. Aan het begin van de stage werd een duidelijke fasering gedefinieerd, die als leidraad diende voor het gehele project. Dit gestructureerde proces zorgde voor een overzichtelijke en efficiënte werkwijze, waarbij elke fase van het project zorgvuldig werd gepland en uitgevoerd. Bij het onderzoek zijn problemen opgekomen betreffend APB, deze problemen zijn projectmatig en in overleg met de opdrachtgever opgelost.
 
@@ -469,11 +500,11 @@ Een grondige analyse van de huidige implementatie van het systeem bracht diverse
 
 Op basis van de uitslag uit de analysefase werden nieuwe implementaties ontworpen voor de FPGA. Het ontwerpen van deze nieuwe configuraties vereiste een diepgaand begrip van de FPGA-architectuur en de specificaties van de te gebruiken communicatieprotocollen. De ontwerpactiviteiten zorgden ervoor dat de nieuwe oplossing zowel flexibel als efficiënt was, met verbeterde communicatiecapaciteiten.
 
-## Realiseren 
+## Realiseren
 
 De nieuwe ontwerpen werden vervolgens geïmplementeerd en getest op de FPGA om de functionaliteit te verifiëren. Deze testfase was cruciaal om te bevestigen dat de theoretische ontwerpen in de praktijk werkten zoals gepland. Eventuele problemen die tijdens de tests naar voren kwamen, werden geanalyseerd en opgelost.
 
-## Adviseren 
+## Adviseren
 
 Op basis van de nieuwe implementatie werden aanbevelingen gedaan voor verdere optimalisaties en verbeterpunten. Deze aanbevelingen omvatten suggesties voor toekomstige verbeteringen en uitbreidingen van de EVAjig. Door deze aanbevelingen kon EVAbits verder bouwen op de behaalde resultaten en de ontwikkeling van hun product continu verbeteren.
 
@@ -488,24 +519,24 @@ Tijdens mijn stage bij EVAbits heb ik veel geleerd over verschillende technieken
 ## Technische Vaardigheden
 
 - **Diepgaande kennis van FPGA's**
-Gedurende mijn stage heb ik uitgebreide ervaring opgedaan met FPGA's, met name de RISC-V Core van Efinix. Het ontwikkelen van schema's met gebruik van een Hardware Description Language was een uitdaging zowel het tooling om de FPGA heen.
+  Gedurende mijn stage heb ik uitgebreide ervaring opgedaan met FPGA's, met name de RISC-V Core van Efinix. Het ontwikkelen van schema's met gebruik van een Hardware Description Language was een uitdaging zowel het tooling om de FPGA heen.
 
 - **Real-Time Operating Systems (RTOS)**
-Het werken met Zephyr OS heeft me waardevolle ervaring gegeven in het gebruik van een RTOS voor embedded systemen. Ik heb geleerd hoe ik effectieve drivers kan schrijven en hoe ik de voordelen van een RTOS kan benutten om efficiënte programma's te schrijven.
+  Het werken met Zephyr OS heeft me waardevolle ervaring gegeven in het gebruik van een RTOS voor embedded systemen. Ik heb geleerd hoe ik effectieve drivers kan schrijven en hoe ik de voordelen van een RTOS kan benutten om efficiënte programma's te schrijven.
 
 - **Communicatieprotocollen**
-De vergelijking van verschillende communicatieprotocollen (SPI, \iic{}, UART) en de implementatie van de protocollen hebben mij veel over het innerlijk van computercommunicatie laten zien. Ik heb geleerd hoe ik de voor- en nadelen van elk protocol kan vergelijken om de beste oplossing voor een specifieke toepassing te kiezen.
+  De vergelijking van verschillende communicatieprotocollen (SPI, \iic{}, UART) en de implementatie van de protocollen hebben mij veel over het innerlijk van computercommunicatie laten zien. Ik heb geleerd hoe ik de voor- en nadelen van elk protocol kan vergelijken om de beste oplossing voor een specifieke toepassing te kiezen.
 
 ## Professionele Ontwikkeling
 
 - **Problemen oplossen**
-In het onderzoek ben ik vast gelopen bij het implementeren van APB. Ik heb geleerd om daarmee om te gaan en naar alternatieven te zoeken om dit probleem te verhelpen.
+  In het onderzoek ben ik vast gelopen bij het implementeren van APB. Ik heb geleerd om daarmee om te gaan en naar alternatieven te zoeken om dit probleem te verhelpen.
 
 - **Onderzoek en Analyse**
-Het onderzoeken en analyseren van de communicatieprotocollen heeft de vaardigheid versterkt. Ik heb geleerd een bestaande implementatie te begrijpen en te analyseren om deze theoretisch toe te passen op een andere casus.
+  Het onderzoeken en analyseren van de communicatieprotocollen heeft de vaardigheid versterkt. Ik heb geleerd een bestaande implementatie te begrijpen en te analyseren om deze theoretisch toe te passen op een andere casus.
 
 - **Documentatie en Schriftelijke Vaardigheden**
-Het opstellen van documentatie en rapporten, zoals dit stageverslag, heeft mijn schriftelijke vaardigheden verbeterd. Ik heb geleerd hoe ik technische informatie duidelijk en gestructureerd kan presenteren, wat essentieel is voor het delen van kennis.
+  Het opstellen van documentatie en rapporten, zoals dit stageverslag, heeft mijn schriftelijke vaardigheden verbeterd. Ik heb geleerd hoe ik technische informatie duidelijk en gestructureerd kan presenteren, wat essentieel is voor het delen van kennis.
 
 ## Reflectie en Toekomstige Verbeteringen
 
