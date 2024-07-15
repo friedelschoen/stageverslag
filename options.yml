@@ -1,8 +1,8 @@
 from: markdown
 to: pdf
-template: template.tex
+template: common/template.tex
 pdf-engine: lualatex
 bibliography: bibliography.bib
-csl: apa-citation.csl
+csl: common/apa-citation.csl
 citeproc: true
 metadata-file: metadata.yml
